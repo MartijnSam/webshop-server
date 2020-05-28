@@ -11,7 +11,7 @@ module.exports = {
           postcode: "4631RN",
           city: "Hoogerheide",
           country: "Netherlands",
-          customerId: 1,
+          CustomerId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
