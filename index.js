@@ -1,4 +1,5 @@
 const cors = require("cors");
+app.use(cors());
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -11,7 +12,7 @@ const categoryRouter = require("./routers/category");
 // const authMiddleware = require("./auth/middleware");
 
 //middleware app-level
-app.use(cors());
+
 app.use(express.json());
 
 //routers
