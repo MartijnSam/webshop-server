@@ -61,16 +61,13 @@ router.post("/signup", async (req, res, next) => {
 router.get("/:customerId/addresses", async (req, res, next) => {
   try {
     const customerId = parseInt(req.params.customerId);
-    const customer = await Customer.findByPk(customerId);
-    const addresses = await Address.findAll({
-      where: { CustomerId: customerId },
+    const customer = await Customer.findByPk(customerId, {
+      include: [Address],
     });
+
     if (!customer) {
       res.status(404).send("The customer was not found");
-    }
-    if (!addresses) {
-      res.status(404).send("No addresses for this user were found");
-    } else res.json({ customer: customer, addresses: addresses });
+    } else res.json(customer);
   } catch (e) {
     next(e);
   }
@@ -105,16 +102,12 @@ router.post("/:customerId/addresses", async (req, res, next) => {
 router.get("/:customerId/orders", async (req, res, next) => {
   try {
     const customerId = parseInt(req.params.customerId);
-    const customer = await Customer.findByPk(customerId);
-    const orders = await Order.findAll({
-      where: { CustomerId: customerId },
+    const customer = await Customer.findByPk(customerId, {
+      include: [Order],
     });
     if (!customer) {
       res.status(404).send("The customer was not found");
-    }
-    if (!orders) {
-      res.status(404).send("No orders for this user were found");
-    } else res.json({ customer: customer, orders: orders });
+    } else res.json(customer);
   } catch (e) {
     next(e);
   }
