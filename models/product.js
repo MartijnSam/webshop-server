@@ -6,13 +6,20 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       price: DataTypes.DECIMAL,
       inStock: DataTypes.INTEGER,
-      description: DataTypes.STRING,
+      description: DataTypes.STRING(1000),
       img: DataTypes.STRING,
     },
     {}
   );
   Product.associate = function (models) {
-    // associations can be defined here
+    Product.belongsToMany(models.Order, {
+      through: "Order_Products",
+      foreignKey: "productId",
+    });
+    Product.belongsToMany(models.Category, {
+      through: "Product_Categories",
+      foreignKey: "productId",
+    });
   };
   return Product;
 };
